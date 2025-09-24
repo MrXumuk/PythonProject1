@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 
 def filter_by_state(
