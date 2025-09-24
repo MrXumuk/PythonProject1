@@ -13,3 +13,21 @@ def filter_by_state(
     :return: Отфильтрованный список операций
     """
     return [t for t in transactions if t.get("state") == state]
+
+
+def sort_by_date(
+        transactions: List[Dict],
+        reverse: bool = True
+) -> List[Dict]:
+    """
+    Сортирует операции по дате.
+
+    :param transactions: Список словарей с данными операций
+    :param reverse: Флаг сортировки (True — по убыванию, False — по возрастанию)
+    :return: Отсортированный список операций
+    """
+    return sorted(
+        transactions,
+        key=lambda x: x["date"],
+        reverse=reverse
+    )
