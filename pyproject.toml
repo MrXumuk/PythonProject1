@@ -1,43 +1,58 @@
-[project]
+[tool.poetry]
 name = "pythonproject1"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Vadim"}
-]
+authors = ["Vadim <vadimpismenskij996@gmail.com>"]   # укажите реальный e‑mail, если нужен
 readme = "README.md"
-requires-python = ">=3.8,<4.0"
-dependencies = [
-    "requests (>=2.32.5,<3.0.0)",
-    "flake8 (>=7.3.0,<8.0.0)",
-    "black (>=25.1.0,<26.0.0)",
-    "isort (>=6.0.1)",
-    "mypy (>=1.17.1,<2.0.0)",
-    "masks (>=0.1.3,<0.2.0)"
-]
+license = "MIT"                               # или любой другой, если нужен
+# Если ваш пакет лежит в подпапке, укажите её в packages (см. ниже)
 
-[tool.poetry]
+# ------------------- Зависимости проекта -------------------
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+requests = ">=2.32.5,<3.0.0"
+flake8 = ">=7.3.0,<8.0.0"
+black = ">=25.1.0,<26.0.0"
+isort = ">=6.0.1"
+mypy = ">=1.17.1,<2.0.0"
+masks = ">=0.1.3,<0.2.0"
+# Если нужны другие runtime‑зависимости – добавляйте их сюда
 
-[tool.poetry.packages]
-include = ["pythonproject1"]
-
+# ------------------- dev‑зависимости (lint, test и т.п.) -------------------
 [tool.poetry.group.lint.dependencies]
 flake8 = "^7.3.0"
 black = "^25.1.0"
 isort = "^6.0.1"
 mypy = "^1.17.1"
 masks = "^0.1.3"
-flask = "^2.3.0"
+flask = "^2.3.0"   # если Flask нужен только для разработки
 
+# ------------------- Пакетные настройки -------------------
+# Если ваш код находится в подпапке (не в корне репозитория), укажите её так:
+[[tool.poetry.packages]]
+include = "pythonproject1"   # имя пакета (папка с __init__.py)
+
+# Если же ваш пакет уже лежит в корне проекта, эту секцию можно просто удалить.
+
+# ------------------- Build system -------------------
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+# ------------------- Настройки линтеров -------------------
 [tool.black]
 line-length = 119
-exclude = ".git"
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
 
 [tool.isort]
+profile = "black"
 line_length = 119
 
 [tool.mypy]
