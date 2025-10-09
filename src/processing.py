@@ -26,8 +26,4 @@ def sort_by_date(
     :param reverse: Флаг сортировки (True — по убыванию, False — по возрастанию)
     :return: Отсортированный список операций
     """
-    return sorted(
-        transactions,
-        key=lambda x: x["date"],
-        reverse=reverse
-    )
+    return sorted(transactions, key=lambda x: x["date"], reverse=reverse)
