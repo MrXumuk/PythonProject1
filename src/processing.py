@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 
 
 def filter_by_state(
@@ -14,16 +14,13 @@ def filter_by_state(
     """
     return [t for t in transactions if t.get("state") == state]
 
-
-def sort_by_date(
-        transactions: List[Dict],
-        reverse: bool = True
-) -> List[Dict]:
+def sort_by_date(transactions: List[Dict[str, Any]], reverse: bool = False) -> List[Dict[str, Any]]:
     """
-    Сортирует операции по дате.
-
-    :param transactions: Список словарей с данными операций
-    :param reverse: Флаг сортировки (True — по убыванию, False — по возрастанию)
-    :return: Отсортированный список операций
+    Сортирует список транзакций по полю "date".
+    Если у какой‑либо записи нет ключа "date", она отбрасывается.
     """
-    return sorted(transactions, key=lambda x: x["date"], reverse=reverse)
+    # Оставляем только те элементы, где ключ "date" действительно присутствует
+    filtered = [t for t in transactions if "date" in t]
+
+    # Сортируем уже «чистый» список
+    return sorted(filtered, key=lambda x: x["date"], reverse=reverse)
